@@ -55,18 +55,7 @@ The EALC orchestrator manages all agents to deliver a cohesive learning experien
 
 ---
 
-## 🧠 Example Interactions
 
-### Frustrated Learner
-
-**Input:**  
-```json
-{
-  "learner_id": "student_123",
-  "query": "I don't understand this algebra problem at all! I've been trying for an hour and nothing makes sense!",
-  "subject": "mathematics",
-  "difficulty_level": "intermediate"
-}
 ## 🔧 Installation & Setup
 
 EALC requires **Python 3.11.3**.

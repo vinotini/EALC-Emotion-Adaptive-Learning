@@ -1,138 +1,88 @@
-# EALC – Emotion-Adaptive Learning Companion
+# EALC — Emotion-Adaptive Learning Companion
 
-**EALC (Emotion-Adaptive Learning Companion)** is a research-grade, emotionally intelligent multi-agent tutoring system that dynamically adapts instruction to each learner’s emotional state, cognitive level, and performance. Designed for next-generation AI education systems, EALC orchestrates a suite of specialized agents to deliver empathic, highly personalized learning interactions.
+EALC is an AI-powered multi-agent educational system that personalizes learning in real time by detecting learner emotions, analyzing performance, and dynamically adapting teaching strategies. The system enhances engagement, motivation, and mastery through emotionally-aware, personalized instruction.
 
----
+## 🚀 Features
+- Real-time emotion detection (frustration, confidence, confusion, etc.)
+- Adaptive teaching strategies based on emotional & cognitive state
+- Personalized explanations, practice questions, and feedback
+- Learner memory profiling for long-term progression
+- Full logging, validation, and decision-trace auditing
 
-## 🧠 Role & Objective
+## 🧠 How It Works
+EALC coordinates five core agents:
+1. **Emotion Detection Agent (EDA)** — Interprets emotional cues  
+2. **Teaching Strategy Agent (TSA)** — Chooses the best instructional approach  
+3. **Knowledge Tutor Agent (KTA)** — Generates explanations & examples  
+4. **Assessment & Feedback Agent (AFA)** — Produces questions & feedback  
+5. **Memory Profile Agent (MPA)** — Updates learner history & progress  
 
-EALC serves as an orchestrator that coordinates all sub-agents to:
+These agents operate sequentially through the EALC orchestrator.
 
-- Detect learner emotions in real time  
-- Select optimal teaching strategies  
-- Generate personalized explanations  
-- Provide assessment and constructive feedback  
-- Manage long-term learner memory & profiles  
-- Validate educational quality and emotional appropriateness  
-- Maintain full observability with logging & error handling  
+## 🔧 Installation
 
-The system aims to replicate human-like emotional sensitivity while delivering adaptive pedagogy.
+EALC requires **Python 3.11.3**.
 
----
+1. Create a virtual environment (recommended):  
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # Linux/Mac
+   venv\Scripts\activate      # Windows
+# EALC Orchestrator Workflow (Python-style pseudocode)
 
-## 🔧 Multi-Agent Architecture
+def process_learner_input(input_data):
+    """
+    Orchestrates all EALC agents to generate an adaptive, personalized response.
+    """
 
-EALC consists of the following core agents:
+    # 1. Emotion Detection
+    emotional_state = EDA.detect_emotion(input_data["query"])
+    
+    # 2. Strategy Selection
+    teaching_strategy = TSA.select_strategy(
+        emotional_state=emotional_state,
+        difficulty=input_data["difficulty_level"],
+        subject=input_data["subject"]
+    )
+    
+    # 3. Personalized Content Generation
+    explanation = KTA.generate_content(
+        query=input_data["query"],
+        strategy=teaching_strategy,
+        learner_profile=MPA.get_profile(input_data["learner_id"])
+    )
+    
+    # 4. Assessment & Feedback
+    practice_questions = AFA.create_questions(
+        explanation=explanation,
+        strategy=teaching_strategy
+    )
+    
+    feedback = AFA.evaluate_response(
+        learner_response=input_data.get("learner_response")
+    )
+    
+    # 5. Memory Update
+    MPA.update_profile(
+        learner_id=input_data["learner_id"],
+        emotional_state=emotional_state,
+        progress=feedback.get("progress", None)
+    )
+    
+    # 6. Validation
+    validated_response = Validator.check(
+        explanation=explanation,
+        practice_questions=practice_questions
+    )
+    
+    # 7. Response Delivery
+    response = format_response(
+        emotional_ack=emotional_state,
+        explanation=validated_response["explanation"],
+        questions=validated_response["practice_questions"],
+        encouragement=generate_encouragement(emotional_state),
+        progress=feedback.get("progress", None)
+    )
+    
+    return response
 
-### **1. Emotion Detection Agent (EDA)**
-Identifies emotional states:
-- frustrated  
-- confused  
-- confident  
-- engaged  
-
-Uses sentiment cues, linguistic markers, and educational psychology patterns.
-
-### **2. Teaching Strategy Agent (TSA)**
-Maps emotion + learning context to strategy:
-- Frustrated → supportive  
-- Confused → clarifying  
-- Confident → challenging  
-- Engaged → extension  
-
-### **3. Knowledge Tutor Agent (KTA)**
-Generates content:
-- personalized explanations  
-- simplified breakdowns  
-- advanced conceptual extensions  
-- examples, analogies, scaffolding  
-
-### **4. Assessment & Feedback Agent (AFA)**
-Creates:
-- adaptive questions  
-- formative feedback  
-- confidence-building practice  
-
-### **5. Memory/Profile Agent (MPA)**
-Stores:
-- learner preferences  
-- emotional patterns  
-- past performance  
-- session history  
-
-### **6. Validation Agents**
-Ensure:
-- correctness  
-- safety  
-- emotional appropriateness  
-- pedagogical quality  
-
-### **7. Tool Agents**
-Integrate with:
-- search tools  
-- summarizers  
-- external data sources  
-
----
-
-## 🧩 Agent Workflow
-
-1. **Input Processing**  
-   Receive learner query + context.
-
-2. **Emotion Detection**  
-   Analyze emotional indicators using:
-   - Anthropic knowledge search  
-   - OpenAI function-based analysis  
-
-3. **Teaching Strategy Selection**  
-   Choose strategy (supportive, clarifying, challenging, encouraging).
-
-4. **Personalized Content Generation**  
-   Use:
-   - Gemini knowledge search  
-   - Combined educational datasets  
-
-5. **Assessment Creation**  
-   Generate exercises via:
-   - OpenAI summarizer tools  
-   - Custom assessment logic  
-
-6. **Memory Update**  
-   Long-term learner profiling.
-
-7. **Validation**  
-   Emotional + educational quality verification.
-
-8. **Response Delivery**  
-   A unified, empathetic, pedagogically aligned output.
-
----
-
-## 🧠 Reasoning Steps (Internal Logic)
-
-EALC processes each learner interaction through the following reasoning pipeline:
-
-- Extract learning topic & prior context  
-- Detect emotion using text signals  
-- Map emotion → teaching strategy  
-- Generate personalized explanation  
-- Design reinforcement assessment  
-- Update learner memory  
-- Validate for emotional safety & quality  
-- Produce a cohesive final response  
-
----
-
-## 📥 Expected Input Format
-
-```json
-{
-    "learner_id": "unique_learner_identifier",
-    "session_id": "current_session_id",
-    "query": "learner's question or response",
-    "subject": "mathematics/science/history/etc",
-    "difficulty_level": "beginner/intermediate/advanced",
-    "previous_interactions": ["array of recent interactions"],
-    "timestamp": "2024-01-01T12:00:00Z"
-}
